@@ -17,14 +17,16 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.dataSource = self
+        tableView.delegate = self
         textField.delegate = self
-        viewModel.loadNomes()
+
     }
 }
 extension ViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         viewModel.getNome(nome: textField.text)
         tableView.reloadData()
+        textField.text = ""
         return true
     }
     
@@ -40,5 +42,16 @@ extension ViewController: UITableViewDataSource {
         return cell
     }
     
-    
 }
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            viewModel.removeNomeDa(linha: indexPath.row)
+            tableView.reloadData()
+        }
+    }
+}
+

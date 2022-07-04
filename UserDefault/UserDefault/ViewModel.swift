@@ -34,4 +34,9 @@ class ViewModel {
         loadNomes()
         return nomes[posicao]
     }
+    
+    func removeNomeDa(linha: Int) {
+        service.remove(row: linha)
+        loadNomes()
+    }
 }

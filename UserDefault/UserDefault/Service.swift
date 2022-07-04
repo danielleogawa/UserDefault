@@ -22,4 +22,9 @@ class Service {
         userDefaults.set(nomes, forKey: "nomes")
     }
     
+    func remove(row: Int){
+        nomes.remove(at: row)
+        userDefaults.set(nomes, forKey: "nomes")
+    }
+    
 }
